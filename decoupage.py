@@ -11,11 +11,16 @@ csv_file = "listing.csv" # this is a csv file where we store all positions
 xml_file = "Xml" # this is the file where all Xmls will be created
 
 # We create our variables.
-fichiercoord = open(csv_file, "w+")
-fichiercoord.write("filename,width,height,class,xmin,ymin,xmax,ymax\n")
+exist=os.path.isfile(csv_file) 
+fichiercoord = open(csv_file, "a")
+if (!exist):
+    fichiercoord.write("filename,width,height,class,xmin,ymin,xmax,ymax,class\n")
 listimg = os.listdir(img_file)
 for i in os.listdir(xml_file):
     listimg.remove(i.split('.')[0] + ".jpg")
+if len(listimg)==0:
+    print("aucun fichier à traiter.")
+    return 0
 position = 0
 debut = [0, 0]
 fin = [40, 40]
@@ -109,10 +114,7 @@ def enregistrer(event):
         debutmin[1] += 1
     while np.mean(imgMatrix[int(finmin[1]), int(debutmin[0]):int(finmin[0])]) == 255:
         finmin[1] -= 1
-    fichiercoord.write(
-        listimg[position] + "," + str(image.size[0]) + "," + str(image.size[1]) + ",hand," + str(
-            int(debutmin[0])) + "," + str(int(
-            debutmin[1])) + "," + str(int(finmin[0])) + "," + str(int(finmin[1])) + "\n")
+    
     if event.num==1:
         canvas.create_rectangle(debutmin[0], debutmin[1], finmin[0], finmin[1], outline="green")
         mains.append("opened hand")
@@ -122,6 +124,10 @@ def enregistrer(event):
     else:
         canvas.create_rectangle(debutmin[0], debutmin[1], finmin[0], finmin[1], outline="blue")
         mains.append("spine hand")
+    fichiercoord.write(
+    listimg[position] + "," + str(image.size[0]) + "," + str(image.size[1]) + ",hand," + str(
+            int(debutmin[0])) + "," + str(int(
+            debutmin[1])) + "," + str(int(finmin[0])) + "," + str(int(finmin[1])) + "," + mains[-1] + "\n")
     mains = mains + debutmin + finmin
 
 
@@ -130,7 +136,7 @@ def onReturnKey(event):
     global position, image, image_tk, canvas, bob, img_file, mains, xml_file, nb_xml
     position += 1
     if position > len(listimg) - 1:
-        tkinter.Label(window, text="plus de photo disponible.").pack()
+        tkinter.Label(window, text="no more pictures availables.").pack()
         return
     image = Image.open(img_file + "/" + listimg[position])
     image_tk = ImageTk.PhotoImage(image)
