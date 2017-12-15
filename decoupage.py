@@ -13,14 +13,14 @@ xml_file = "Xml" # this is the file where all Xmls will be created
 # We create our variables.
 exist=os.path.isfile(csv_file) 
 fichiercoord = open(csv_file, "a")
-if (!exist):
+if (exist==False):
     fichiercoord.write("filename,width,height,class,xmin,ymin,xmax,ymax,class\n")
 listimg = os.listdir(img_file)
 for i in os.listdir(xml_file):
     listimg.remove(i.split('.')[0] + ".jpg")
 if len(listimg)==0:
     print("aucun fichier à traiter.")
-    return 0
+    exit
 position = 0
 debut = [0, 0]
 fin = [40, 40]
@@ -91,7 +91,6 @@ def echelonnage(event):
 
 # the function witch store all our clics and write it in the csv
 def enregistrer(event):
-    print(event.num)
     global mains, listimg, position, debut, fin, fichiercoord, image, canvas, img_file
     debutmin = list(debut)
     finmin = list(fin)
