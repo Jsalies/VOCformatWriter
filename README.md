@@ -1,6 +1,6 @@
 # VOCformatWriter
 
-This tool is designed to create your own datasets using python 3.5
+This tool is designed to create your own datasets (format VOC and csv) using python 3.5.
 
 # Functions
 
@@ -18,13 +18,13 @@ This tool is designed to create your own datasets using python 3.5
  - store your pictures in Images.
  - run the script.
  - use mouse's wheel to modify the size of your frame.
- - right/left/center clic on your objets.
+ - right/left/center clic on your objects.
  - remove the last frame by using BackSpace.
  - press Enter to save objets in Xml and csv.
 
 # Tools
 
- - too take a look on your work, you can use Visualisation.py
+ - to take a look on your work, you can use Visualisation.py
  
 # Examples
 
@@ -32,4 +32,5 @@ This tool is designed to create your own datasets using python 3.5
 
 # More
 
+You should be able to use it on Ubuntu and python 2.7 with minor changing.
 Feel free to modify/upgrade this code. Enjoy!!
